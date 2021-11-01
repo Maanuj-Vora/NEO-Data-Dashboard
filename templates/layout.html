@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Asteroid Shower</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Asteroid data taken from NASA" name="description" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static',filename='images/favicon.ico') }}">
+
+    <!-- App css -->
+    <link href="{{ url_for('static',filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static',filename='css/icons.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static',filename='css/main.css') }}" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+    <script src="{{ url_for('static',filename='js/vendor.js') }}"></script>
+    <script src="{{ url_for('static',filename='libs/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/pages/draggable.init.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/app.js') }}"></script>
+
+    <!-- {% include 'preloader.html' %} -->
+    {% block content %}{% endblock %}
+
+</body>
+
+</html>

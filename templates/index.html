@@ -1,0 +1,233 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% set asteroid_space = namespace(current_asteroid=0) %}
+
+{% for asteroid in asteroid_data %}
+{% if asteroid['id'] == current_id %}
+{% set asteroid_space.current_asteroid = asteroid %}
+{% endif %}
+{% endfor %}
+{% set current_asteroid = asteroid_space.current_asteroid %}
+
+<link href="{{ url_for('static',filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ url_for('static',filename='css/icons.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ url_for('static',filename='css/main.css') }}" rel="stylesheet" type="text/css" />
+
+<!-- Begin page -->
+<div id="wrapper">
+
+    <!-- Topbar Start -->
+    <div class="navbar-custom">
+
+        <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+            <li>
+                <button class="button-menu-mobile disable-btn waves-effect">
+                    <i class="fe-menu"></i>
+                </button>
+            </li>
+
+            <li>
+                <h4 class="page-title-main">{{ current_asteroid['name'] }}</h4>
+            </li>
+
+        </ul>
+    </div>
+    <!-- end Topbar -->
+
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="left-side-menu">
+
+        <div class="slimscroll-menu">
+
+            <!--- Sidemenu -->
+            <div id="sidebar-menu">
+
+                <ul class="metismenu" id="side-menu">
+
+                    <li class="menu-title">Navigation</li>
+                    {% for asteroid in asteroid_data %}
+                    <li>
+                        <a href="{{ url_for('different_asteroid', asteroid_id=asteroid['id']) }}">
+                            <i class="mdi mdi-view-dashboard"></i>
+                            <span> {{ asteroid['name'] }} </span>
+                        </a>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+            <!-- End Sidebar -->
+
+            <div class="clearfix"></div>
+
+        </div>
+        <!-- Sidebar -left -->
+
+    </div>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <div class="sortable">
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            {% if current_asteroid['is_potentially_hazardous_asteroid'] %}
+                            <div class="card text-white bg-danger card-draggable">
+                                <div class="card-body text-center">
+                                    <h4>Potentially Hazardous</h4>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="card text-white bg-success card-draggable">
+                                <div class="card-body text-center">
+                                    <h4>Not Potentially Hazardous</h4>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            <div class="card-box card-draggable card border border-primary">
+                                <h4 class="header-title mt-0 mb-1 text-center">Estimated Min. Diameter</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(current_asteroid['estimated_diameter']['meters']['estimated_diameter_min']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                        <p class="text-muted mb-1">Meters</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card border border-primary">
+                                <h4 class="header-title mt-0 mb-1 text-center">Estimated Max. Diameter</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(current_asteroid['estimated_diameter']['meters']['estimated_diameter_max']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                        <p class="text-muted mb-1">Meters</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card-box card-draggable card border border-secondary">
+                                <h4 class="header-title mt-0 mb-1 text-center">Approach Date</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{
+                                            current_asteroid['close_approach_data'][0]['close_approach_date_full']
+                                            }}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-box card-draggable card border border-secondary">
+                                <h4 class="header-title mt-0 mb-1 text-center">Relative Velocity</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(current_asteroid['close_approach_data'][0]['relative_velocity']['kilometers_per_second']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                        <p class="text-muted mb-1">Kilometers Per Second</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-box card-draggable card border border-secondary">
+                                <h4 class="header-title mt-0 mb-1 text-center">Miss Distance</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(current_asteroid['close_approach_data'][0]['miss_distance']['kilometers']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                        <p class="text-muted mb-1">Kilometers</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card-box card-draggable card border border-tertiary">
+                                <h4 class="header-title mt-0 mb-1 text-center">Name</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{current_asteroid['name']}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card border border-tertiary">
+                                <h4 class="header-title mt-0 mb-1 text-center">Orbiting Around</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{current_asteroid['close_approach_data'][0]['orbiting_body']}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card border border-tertiary">
+                                <h4 class="header-title mt-0 mb-1 text-center">More Information</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+
+                                        <h3 class="font-weight-normal mb-2">
+                                            <a href="#" class="btn btn-secondary">Click Here</a>
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div><!-- Row -->
+                </div><!-- Sortable -->
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
+
+        {% include 'footer.html' %}
+
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+</div>
+<!-- END wrapper -->
+
+<script src="{{ url_for('static',filename='js/vendor.js') }}"></script>
+<script src="{{ url_for('static',filename='libs/jquery-ui/jquery-ui.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/pages/draggable.init.js') }}"></script>
+<script src="{{ url_for('static',filename='js/app.js') }}"></script>
+
+{% endblock %}

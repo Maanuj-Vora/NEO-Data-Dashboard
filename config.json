@@ -1,0 +1,3 @@
+{
+    "NeoWs_date": "https://api.nasa.gov/neo/rest/v1/feed?start_date={START_DATE}&api_key={API_KEY}"
+}
