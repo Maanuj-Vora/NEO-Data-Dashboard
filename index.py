@@ -24,3 +24,13 @@ def different_asteroid(asteroid_id):
     return render_template(
         "index.html", asteroid_data=cached_asteriod_data, current_id=asteroid_id
     )
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return home()
+
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return home()
