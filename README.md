@@ -1,6 +1,8 @@
-# Nasa Data Shower
+# NEO Data Dashboard
  
 Retrieves NEO(near-Earth Objects) Earth Close Approaches and displays them to users
+
+Data retrieved from NASA's JPL
 
 Currently retrieves objects for the next seven days
 
