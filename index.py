@@ -21,7 +21,7 @@ def home():
     session_cookies()
     response = make_response(
         render_template(
-            "index.html",
+            "neo_overview.html",
             clean_words=clean_words,
             asteroid_data=cached_asteriod_data,
             current_id=cached_asteriod_data[0]["id"],
@@ -36,7 +36,7 @@ def different_asteroid(asteroid_id):
 
     response = make_response(
         render_template(
-            "index.html",
+            "neo_overview.html",
             clean_words=clean_words,
             asteroid_data=cached_asteriod_data,
             current_id=asteroid_id,

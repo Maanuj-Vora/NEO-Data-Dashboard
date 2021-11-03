@@ -9,9 +9,13 @@ def todayDate():
     return datetime.today().strftime("%Y-%m-%d")
 
 
-def dumpJSON(data):
+def dumpJSONtest(data):
     json.dump(data, open("test.json", "w", encoding="utf-8"))
 
+def dumpJSON(filename, data):
+    f = open(os.path.join('tmp', f'{filename}.json'), "x", encoding="utf-8")
+
+    json.dump(data, f)
 
 def get(file):
     try:
@@ -22,7 +26,8 @@ def get(file):
     except AttributeError:
         raise AttributeError("Unknown argument")
     except FileNotFoundError:
-        raise FileNotFoundError("JSON file wasn't found")
+        # raise FileNotFoundError("JSON file wasn't found")
+        return None
 
 
 def getJSON(url):
