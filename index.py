@@ -55,7 +55,7 @@ def update_units():
 
 def session_cookies():
     if not session.get("estimated_diameter"):
-        session["estimated_diameter"] = "meters"
+        session["estimated_diameter"] = "kilometers"
 
     if not session.get("relative_velocity"):
         session["relative_velocity"] = "kilometers_per_second"
