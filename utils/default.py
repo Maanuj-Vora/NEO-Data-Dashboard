@@ -13,7 +13,7 @@ def dumpJSONtest(data):
     json.dump(data, open("test.json", "w", encoding="utf-8"))
 
 def dumpJSON(filename, data):
-    f = open(os.path.join('tmp', f'{filename}.json'), "x", encoding="utf-8")
+    f = open(os.path.join('tmp', f'{filename}.json'), "w", encoding="utf-8")
 
     json.dump(data, f)
 
