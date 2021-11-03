@@ -33,7 +33,7 @@ def today_asteroid(asteroid_id="0"):
     cached_asteriod_data = data.todayAsteroids()
     response = make_response(
         render_template(
-            "neo_overview.html",
+            "neo_today.html",
             clean_words=clean_words,
             asteroid_data=cached_asteriod_data,
             current_id=asteroid_id,

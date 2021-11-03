@@ -97,6 +97,19 @@
                     <div class="row">
                         <div class="col-md-4">
 
+                            <div class="card-box card-draggable card border border-tertiary">
+                                <h4 class="header-title mt-0 mb-1 text-center">Name</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{current_asteroid['name']}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             {% if current_asteroid['is_potentially_hazardous_asteroid'] %}
                             <div class="card text-white bg-danger card-draggable">
                                 <div class="card-body text-center">
@@ -111,32 +124,17 @@
                             </div>
                             {% endif %}
 
-                            <div class="card-box card-draggable card border border-primary">
-                                <h4 class="header-title mt-0 mb-1 text-center">Estimated Min. Diameter</h4>
+                            <div class="card-box card-draggable card border border-tertiary">
+                                <h4 class="header-title mt-0 mb-1 text-center">Orbiting Around</h4>
                                 <div class="widget-box-2">
                                     <div class="widget-detail-2 text-center">
+
                                         <h3 class="font-weight-normal mb-2">
-                                            {{(current_asteroid['estimated_diameter'][session['estimated_diameter']]['estimated_diameter_min']|float)|round(3,
-                                            'floor')}}
+                                            {{current_asteroid['close_approach_data'][0]['orbiting_body']}}
                                         </h3>
-                                        <p class="text-muted mb-1">{{ clean_words(session['estimated_diameter']) }}</p>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="card-box card-draggable card border border-primary">
-                                <h4 class="header-title mt-0 mb-1 text-center">Estimated Max. Diameter</h4>
-                                <div class="widget-box-2">
-                                    <div class="widget-detail-2 text-center">
-                                        <h3 class="font-weight-normal mb-2">
-                                            {{(current_asteroid['estimated_diameter'][session['estimated_diameter']]['estimated_diameter_max']|float)|round(3,
-                                            'floor')}}
-                                        </h3>
-                                        <p class="text-muted mb-1">{{ clean_words(session['estimated_diameter']) }}</p>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
 
                         <div class="col-md-4">
@@ -182,30 +180,32 @@
                         </div>
 
                         <div class="col-md-4">
-                            <div class="card-box card-draggable card border border-tertiary">
-                                <h4 class="header-title mt-0 mb-1 text-center">Name</h4>
+                            <div class="card-box card-draggable card border border-primary">
+                                <h4 class="header-title mt-0 mb-1 text-center">Estimated Min. Diameter</h4>
                                 <div class="widget-box-2">
                                     <div class="widget-detail-2 text-center">
-
                                         <h3 class="font-weight-normal mb-2">
-                                            {{current_asteroid['name']}}
+                                            {{(current_asteroid['estimated_diameter'][session['estimated_diameter']]['estimated_diameter_min']|float)|round(3,
+                                            'floor')}}
                                         </h3>
+                                        <p class="text-muted mb-1">{{ clean_words(session['estimated_diameter']) }}</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="card-box card-draggable card border border-tertiary">
-                                <h4 class="header-title mt-0 mb-1 text-center">Orbiting Around</h4>
+                            <div class="card-box card-draggable card border border-primary">
+                                <h4 class="header-title mt-0 mb-1 text-center">Estimated Max. Diameter</h4>
                                 <div class="widget-box-2">
                                     <div class="widget-detail-2 text-center">
-
                                         <h3 class="font-weight-normal mb-2">
-                                            {{current_asteroid['close_approach_data'][0]['orbiting_body']}}
+                                            {{(current_asteroid['estimated_diameter'][session['estimated_diameter']]['estimated_diameter_max']|float)|round(3,
+                                            'floor')}}
                                         </h3>
+                                        <p class="text-muted mb-1">{{ clean_words(session['estimated_diameter']) }}</p>
                                     </div>
                                 </div>
                             </div>
-
+                            
                             <div class="card-box card-draggable card border border-tertiary">
                                 <h4 class="header-title mt-0 mb-1 text-center">More Information</h4>
                                 <div class="widget-box-2">
