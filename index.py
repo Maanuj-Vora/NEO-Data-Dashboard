@@ -27,7 +27,7 @@ def index():
     return response
 
 
-@app.route("/today_asteroid/<string:asteroid_id>")
+@app.route("/neo_today/<string:asteroid_id>")
 def today_asteroid(asteroid_id="0"):
     global cached_asteriod_data
     cached_asteriod_data = data.todayAsteroids()
@@ -42,12 +42,31 @@ def today_asteroid(asteroid_id="0"):
     return response
 
 
-@app.route("/update_units", methods=["POST"])
-def update_units():
+@app.route("/neo_information/<string:neo_id>")
+def neo_information(neo_id):
+    neo_data = data.neoInformation(neo_id)
+    response = make_response(
+        render_template(
+            "neo_information.html", clean_words=clean_words, neo_data=neo_data, current_id=neo_id
+        )
+    )
+    return response
+
+
+@app.route("/update_units_today", methods=["POST"])
+def update_units_today():
     session["estimated_diameter"] = request.form["estimated_diameter"]
     session["relative_velocity"] = request.form["relative_velocity"]
     session["miss_distance"] = request.form["miss_distance"]
-    return redirect("/")
+    return redirect(f'/neo_today/{request.form["asteroid_id"]}')
+
+
+@app.route("/update_units_information", methods=["POST"])
+def update_units_information():
+    session["estimated_diameter"] = request.form["estimated_diameter"]
+    session["relative_velocity"] = request.form["relative_velocity"]
+    session["miss_distance"] = request.form["miss_distance"]
+    return redirect(f'/neo_information/{request.form["current_id"]}')
 
 
 def session_cookies():
@@ -63,17 +82,6 @@ def session_cookies():
 
 def clean_words(word):
     return word.replace("_", " ").title()
-
-
-@app.errorhandler(404)
-def page_not_found(e):
-    return index()
-
-
-@app.errorhandler(500)
-def internal_server_error(e):
-    return index()
-
 
 if __name__ == "__main__":
     app.run()

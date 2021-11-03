@@ -170,7 +170,7 @@
                                     <div class="widget-detail-2 text-center">
 
                                         <h3 class="font-weight-normal mb-2">
-                                            {{(current_asteroid['close_approach_data'][0]['miss_distance']['kilometers']|float)|round(3,
+                                            {{(current_asteroid['close_approach_data'][0]['miss_distance'][session['miss_distance']]|float)|round(3,
                                             'floor')}}
                                         </h3>
                                         <p class="text-muted mb-1">{{ clean_words(session['miss_distance']) }}</p>
@@ -212,7 +212,8 @@
                                     <div class="widget-detail-2 text-center">
 
                                         <h3 class="font-weight-normal mb-2">
-                                            <a href="#" class="btn btn-secondary">Click Here</a>
+                                            <a href="{{ url_for('neo_information', neo_id=current_id) }}"
+                                                class="btn btn-secondary">Click Here</a>
                                         </h3>
                                     </div>
                                 </div>
@@ -250,7 +251,7 @@
     <div class="slimscroll-menu">
 
         <div class="p-3">
-            <form id="update_units" action="{{ url_for('update_units') }}" method="post">
+            <form id="update_units" action="{{ url_for('update_units_today') }}" method="post">
 
                 <h5 class="pl-3">Estimated Diameter</h5>
                 <hr class="mb-2" />
@@ -304,6 +305,9 @@
                     </label>
                 </div>
                 {% endfor %}
+
+                <input type="text" style="visibility: hidden;" name="asteroid_id" id="asteroid_id"
+                    placeholder="current_id" value="{{ current_id }}">
 
                 <h3 class="font-weight-normal mb-2">
                     <a href="#" onclick="document.getElementById('update_units').submit()"

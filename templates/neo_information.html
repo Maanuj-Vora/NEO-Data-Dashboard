@@ -1,0 +1,544 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<link href="{{ url_for('static',filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ url_for('static',filename='css/icons.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ url_for('static',filename='css/main.css') }}" rel="stylesheet" type="text/css" />
+
+<!-- Begin page -->
+<div id="wrapper">
+
+    <!-- Topbar Start -->
+    <div class="navbar-custom">
+
+        <ul class="list-unstyled topnav-menu float-right mb-0">
+
+            <li class="dropdown notification-list">
+                <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect">
+                    <i class="fe-settings noti-icon"></i>
+                </a>
+            </li>
+
+
+        </ul>
+        <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+            <li>
+                <button class="button-menu-mobile disable-btn waves-effect">
+                    <i class="fe-menu"></i>
+                </button>
+            </li>
+
+            <li>
+                <h4 class="page-title-main">{{ neo_data['name'] }}</h4>
+            </li>
+
+        </ul>
+    </div>
+    <!-- end Topbar -->
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-full">
+        <div class="content">
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <div class="sortable">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Name</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{neo_data['name']}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% if neo_data['is_potentially_hazardous_asteroid'] %}
+                            <div class="card text-white bg-danger card-draggable">
+                                <div class="card-body text-center">
+                                    <h4>Potentially Hazardous</h4>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="card text-white bg-success card-draggable">
+                                <div class="card-body text-center">
+                                    <h4>Not Potentially Hazardous</h4>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Absolute Magnitude (H)</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{neo_data['absolute_magnitude_h']}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Estimated Min. Diameter</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['estimated_diameter'][session['estimated_diameter']]['estimated_diameter_min']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                        <p class="text-muted mb-1">{{ clean_words(session['estimated_diameter']) }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Estimated Max. Diameter</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['estimated_diameter'][session['estimated_diameter']]['estimated_diameter_max']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                        <p class="text-muted mb-1">{{ clean_words(session['estimated_diameter']) }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="card text-white bg-primary card-draggable">
+                                <div class="card-body text-center">
+                                    <h4>Orbital Data</h4>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Orbit Determination Date</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{neo_data['orbital_data']['orbit_determination_date']}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">First Observation Date</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{neo_data['orbital_data']['first_observation_date']}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Last Determination Date</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{neo_data['orbital_data']['last_observation_date']}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Data Arc</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{neo_data['orbital_data']['data_arc_in_days']}}
+                                        </h3>
+                                        <p class="text-muted mb-1">Days</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Observations Used</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{neo_data['orbital_data']['observations_used']}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Orbit Uncertainty</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['orbital_data']['orbit_uncertainty']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Minimum Orbit Intersection</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['orbital_data']['minimum_orbit_intersection']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Jupiter Tisserand Invariant</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['orbital_data']['jupiter_tisserand_invariant']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Epoch epoch_osculation</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['orbital_data']['epoch_osculation']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Eccentricity</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['orbital_data']['eccentricity']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Semi-Major Axis</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['orbital_data']['semi_major_axis']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Inclination</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['orbital_data']['inclination']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Ascending Node Longitude</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['orbital_data']['ascending_node_longitude']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Orbital Period</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['orbital_data']['orbital_period']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Perihelion Distance</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['orbital_data']['perihelion_distance']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Perihelion Argument</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['orbital_data']['perihelion_argument']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Aphelion Distance</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['orbital_data']['aphelion_distance']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Perihelion Time</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['orbital_data']['perihelion_time']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Mean Anomaly</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['orbital_data']['mean_anomaly']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Mean Motion</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{(neo_data['orbital_data']['mean_motion']|float)|round(3,
+                                            'floor')}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Equinox</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{neo_data['orbital_data']['equinox']}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card text-white bg-pink card-draggable">
+                                <div class="card-body text-center">
+                                    <h4>Orbit Class Data</h4>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Orbit Class Type</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <h3 class="font-weight-normal mb-2">
+                                            {{neo_data['orbital_data']['orbit_class']['orbit_class_type']}}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Orbit Class Description</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <p class="text-muted mb-1">{{neo_data['orbital_data']['orbit_class']['orbit_class_description']}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">Orbit Class Range</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+                                        <p class="text-muted mb-1">{{neo_data['orbital_data']['orbit_class']['orbit_class_range']}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="card text-white bg-purple card-draggable">
+                                <div class="card-body text-center">
+                                    <h4>Close Approach Data</h4>
+                                </div>
+                            </div>
+
+                            {% for close_approach in neo_data['close_approach_data'] %}
+                            <div class="card-box card-draggable card">
+                                <h4 class="header-title mt-0 mb-1 text-center">
+                                    {{close_approach['close_approach_date_full']}}</h4>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Relative Velocity:
+                                        {{(close_approach['relative_velocity'][session['relative_velocity']]|float)|round(3,
+                                        'floor')}} {{ clean_words(session['relative_velocity']) }}</li>
+                                    <li class="list-group-item">Miss Distance:
+                                        {{(close_approach['miss_distance'][session['miss_distance']]|float)|round(3,
+                                        'floor')}} {{ clean_words(session['miss_distance']) }}</li>
+                                    <li class="list-group-item">Orbiting Body:
+                                        {{close_approach['orbiting_body']}}</li>
+                                </ul>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+
+                    </div><!-- Row -->
+                </div><!-- Sortable -->
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
+
+        {% include 'footer_full.html' %}
+
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+</div>
+<!-- END wrapper -->
+
+<!-- Right Sidebar -->
+<div class="right-bar">
+    <div class="rightbar-title">
+        <a href="javascript:void(0);" class="right-bar-toggle float-right">
+            <i class="dripicons-cross noti-icon"></i>
+        </a>
+        <h4 class="m-0 text-white">Settings</h4>
+    </div>
+    <div class="slimscroll-menu">
+        <div class="p-3">
+            <form id="update_units" action="{{ url_for('update_units_information') }}" method="post">
+
+                <h5 class="pl-3">Estimated Diameter</h5>
+                <hr class="mb-2" />
+
+                {% for key in neo_data['estimated_diameter'] %}
+                <div class="radio">
+                    {% if key == session['estimated_diameter'] %}
+                    <input type="radio" name="estimated_diameter" id="estimated_diameter_{{loop.index}}" value="{{key}}"
+                        checked>
+                    {% else %}
+                    <input type="radio" name="estimated_diameter" id="estimated_diameter_{{loop.index}}"
+                        value="{{key}}">
+                    {% endif %}
+                    <label for="estimated_diameter_{{loop.index}}">
+                        {{ clean_words(key) }}
+                    </label>
+                </div>
+                {% endfor %}
+
+                <hr class="mb-2" />
+                <h5 class="pl-3">Relative Velocity</h5>
+                <hr class="mb-2" />
+
+                {% for key in neo_data['close_approach_data'][0]['relative_velocity'] %}
+                <div class="radio">
+                    {% if key == session['relative_velocity'] %}
+                    <input type="radio" name="relative_velocity" id="relative_velocity_{{loop.index}}" value="{{key}}"
+                        checked>
+                    {% else %}
+                    <input type="radio" name="relative_velocity" id="relative_velocity_{{loop.index}}" value="{{key}}">
+                    {% endif %}
+                    <label for="relative_velocity_{{loop.index}}">
+                        {{ clean_words(key) }}
+                    </label>
+                </div>
+                {% endfor %}
+
+                <hr class="mb-2" />
+                <h5 class="pl-3">Miss Distance</h5>
+                <hr class="mb-2" />
+
+                {% for key in neo_data['close_approach_data'][0]['miss_distance'] %}
+                <div class="radio">
+                    {% if key == session['miss_distance'] %}
+                    <input type="radio" name="miss_distance" id="miss_distance_{{loop.index}}" value="{{key}}" checked>
+                    {% else %}
+                    <input type="radio" name="miss_distance" id="miss_distance_{{loop.index}}" value="{{key}}">
+                    {% endif %}
+                    <label for="miss_distance_{{loop.index}}">
+                        {{ clean_words(key) }}
+                    </label>
+                </div>
+                {% endfor %}
+
+                <h3 class="font-weight-normal mb-2">
+                    <a href="#" onclick="document.getElementById('update_units').submit()"
+                        class="btn btn-secondary">Update Units</a>
+                </h3>
+
+                <input type="text" style="visibility: hidden;" name="current_id" id="current_id"
+                    placeholder="{{ current_id }}" value="{{ current_id }}">
+
+                <hr class="mb-2" />
+
+            </form>
+        </div>
+    </div> <!-- end slimscroll-menu-->
+</div>
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+
+<script src="{{ url_for('static',filename='js/vendor.js') }}"></script>
+<script src="{{ url_for('static',filename='libs/jquery-ui/jquery-ui.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/pages/draggable.init.js') }}"></script>
+<script src="{{ url_for('static',filename='js/app.js') }}"></script>
+
+{% endblock %}

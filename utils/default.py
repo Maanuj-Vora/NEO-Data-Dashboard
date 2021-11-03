@@ -43,4 +43,8 @@ def replaceSTART_DATE(placeholder):
     return placeholder.replace("{START_DATE}", todayDate())
 
 
+def replaceNEO_ID(placeholder, id):
+    return placeholder.replace("{NEO_ID}", id)
+
+
 config = get("config.json")
