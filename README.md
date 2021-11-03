@@ -15,9 +15,11 @@ Data shown is
 - miss distance
 - object orbiting around
 
+Currently working on
+- [ ] more information panel
+
 Things to be added
 - [ ] improve dashboard page
-- [ ] more information panel
 - [ ] show data for next seven days
 - [ ] allow user to choose start date (and get data for the next seven days from that date)
 - [ ] make 404 and 500 page
