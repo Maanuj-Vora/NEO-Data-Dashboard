@@ -16,9 +16,11 @@ Data shown is
 - object orbiting around
 
 Things to be added
-- [ ] have an actual dashboard frontpage
+- [ ] improve dashboard page
 - [ ] more information panel
+- [ ] show data for next seven days
 - [ ] allow user to choose start date (and get data for the next seven days from that date)
-- [ ] make 404 page
+- [ ] make 404 and 500 page
+- [x] have an actual dashboard frontpage
 - [x] have a better data caching method
 - [x] allow user to change unit measurements

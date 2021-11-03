@@ -4,6 +4,10 @@
 
 {% set asteroid_space = namespace(current_asteroid=0) %}
 
+{% if current_id == "0" %}
+{% set current_id = asteroid_data[0]['id'] %}
+{% endif %}
+
 {% for asteroid in asteroid_data %}
 {% if asteroid['id'] == current_id %}
 {% set asteroid_space.current_asteroid = asteroid %}
@@ -59,7 +63,7 @@
                     <li class="menu-title">Navigation</li>
                     {% for asteroid in asteroid_data %}
                     <li>
-                        <a href="{{ url_for('different_asteroid', asteroid_id=asteroid['id']) }}">
+                        <a href="{{ url_for('today_asteroid', asteroid_id=asteroid['id']) }}">
                             <i class="mdi mdi-view-dashboard"></i>
                             <span> {{ asteroid['name'] }} </span>
                         </a>

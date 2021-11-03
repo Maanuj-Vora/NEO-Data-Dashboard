@@ -15,25 +15,22 @@ cached_asteriod_data = None
 
 
 @app.route("/")
-def home():
+def index():
     global cached_asteriod_data
     cached_asteriod_data = data.todayAsteroids()
     session_cookies()
     response = make_response(
         render_template(
-            "neo_overview.html",
-            clean_words=clean_words,
-            asteroid_data=cached_asteriod_data,
-            current_id=cached_asteriod_data[0]["id"],
+            "index.html",
         )
     )
     return response
 
 
-@app.route("/<string:asteroid_id>")
-def different_asteroid(asteroid_id):
+@app.route("/today_asteroid/<string:asteroid_id>")
+def today_asteroid(asteroid_id="0"):
     global cached_asteriod_data
-
+    cached_asteriod_data = data.todayAsteroids()
     response = make_response(
         render_template(
             "neo_overview.html",
@@ -70,12 +67,13 @@ def clean_words(word):
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return home()
+    return index()
 
 
 @app.errorhandler(500)
 def internal_server_error(e):
-    return home()
+    return index()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app.run()

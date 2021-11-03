@@ -58,6 +58,14 @@ body {
   margin-top: 70px;
 }
 
+.content-full {
+  margin-left: 0px;
+  overflow: hidden;
+  padding: 0 12px 2px 12px;
+  min-height: 80vh;
+  margin-top: 70px;
+}
+
 .left-side-menu {
   width: 240px;
   background: #ffffff;
@@ -684,6 +692,15 @@ body.enlarged {
   right: 0;
   color: #adb5bd;
   left: 240px;
+  background-color: #242932;
+}
+.footer_full {
+  bottom: 0;
+  padding: 19px 15px 20px;
+  position: absolute;
+  right: 0;
+  color: #adb5bd;
+  left: 0px;
   background-color: #242932;
 }
 .footer .footer-links a {

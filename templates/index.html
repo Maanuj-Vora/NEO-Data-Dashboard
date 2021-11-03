@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<link href="{{ url_for('static',filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ url_for('static',filename='css/icons.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ url_for('static',filename='css/main.css') }}" rel="stylesheet" type="text/css" />
+
+<!-- Begin page -->
+<div id="wrapper">
+
+    <!-- Topbar Start -->
+    <div class="navbar-custom">
+        <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+
+            <li>
+                <h4 class="page-title-main">NEO Dashboard</h4>
+            </li>
+
+        </ul>
+    </div>
+    <!-- end Topbar -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-full">
+        <div class="content">
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <div class="sortable">
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <div class="card-box card-draggable card border border-tertiary">
+                                <h4 class="header-title mt-0 mb-1 text-center">Today's NEOs</h4>
+                                <div class="widget-box-2">
+                                    <div class="widget-detail-2 text-center">
+
+                                        <h3 class="font-weight-normal mb-2">
+                                            <a href="{{ url_for('today_asteroid', asteroid_id='0') }}" class="btn btn-secondary">Click Here</a>
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div><!-- Row -->
+                </div><!-- Sortable -->
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
+
+        {% include 'footer_full.html' %}
+
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+</div>
+<!-- END wrapper -->
+
+<script src="{{ url_for('static',filename='js/vendor.js') }}"></script>
+<script src="{{ url_for('static',filename='libs/jquery-ui/jquery-ui.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/pages/draggable.init.js') }}"></script>
+<script src="{{ url_for('static',filename='js/app.js') }}"></script>
+
+{% endblock %}
