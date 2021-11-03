@@ -21,6 +21,16 @@
     <!-- Topbar Start -->
     <div class="navbar-custom">
 
+        <ul class="list-unstyled topnav-menu float-right mb-0">
+
+            <li class="dropdown notification-list">
+                <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect">
+                    <i class="fe-settings noti-icon"></i>
+                </a>
+            </li>
+
+
+        </ul>
         <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
             <li>
                 <button class="button-menu-mobile disable-btn waves-effect">
@@ -102,10 +112,10 @@
                                 <div class="widget-box-2">
                                     <div class="widget-detail-2 text-center">
                                         <h3 class="font-weight-normal mb-2">
-                                            {{(current_asteroid['estimated_diameter']['meters']['estimated_diameter_min']|float)|round(3,
+                                            {{(current_asteroid['estimated_diameter'][session['estimated_diameter']]['estimated_diameter_min']|float)|round(3,
                                             'floor')}}
                                         </h3>
-                                        <p class="text-muted mb-1">Meters</p>
+                                        <p class="text-muted mb-1">{{ clean_words(session['estimated_diameter']) }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -115,10 +125,10 @@
                                 <div class="widget-box-2">
                                     <div class="widget-detail-2 text-center">
                                         <h3 class="font-weight-normal mb-2">
-                                            {{(current_asteroid['estimated_diameter']['meters']['estimated_diameter_max']|float)|round(3,
+                                            {{(current_asteroid['estimated_diameter'][session['estimated_diameter']]['estimated_diameter_max']|float)|round(3,
                                             'floor')}}
                                         </h3>
-                                        <p class="text-muted mb-1">Meters</p>
+                                        <p class="text-muted mb-1">{{ clean_words(session['estimated_diameter']) }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -145,10 +155,10 @@
                                     <div class="widget-detail-2 text-center">
 
                                         <h3 class="font-weight-normal mb-2">
-                                            {{(current_asteroid['close_approach_data'][0]['relative_velocity']['kilometers_per_second']|float)|round(3,
+                                            {{(current_asteroid['close_approach_data'][0]['relative_velocity'][session['relative_velocity']]|float)|round(3,
                                             'floor')}}
                                         </h3>
-                                        <p class="text-muted mb-1">Kilometers Per Second</p>
+                                        <p class="text-muted mb-1">{{ clean_words(session['relative_velocity']) }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -161,7 +171,7 @@
                                             {{(current_asteroid['close_approach_data'][0]['miss_distance']['kilometers']|float)|round(3,
                                             'floor')}}
                                         </h3>
-                                        <p class="text-muted mb-1">Kilometers</p>
+                                        <p class="text-muted mb-1">{{ clean_words(session['miss_distance']) }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -224,6 +234,87 @@
 
 </div>
 <!-- END wrapper -->
+
+<!-- Right Sidebar -->
+<div class="right-bar">
+    <div class="rightbar-title">
+        <a href="javascript:void(0);" class="right-bar-toggle float-right">
+            <i class="dripicons-cross noti-icon"></i>
+        </a>
+        <h4 class="m-0 text-white">Settings</h4>
+    </div>
+    <div class="slimscroll-menu">
+
+        <div class="p-3">
+            <form id="update_units" action="{{ url_for('update_units') }}" method="post">
+
+                <h5 class="pl-3">Estimated Diameter</h5>
+                <hr class="mb-2" />
+
+                {% for key in current_asteroid['estimated_diameter'] %}
+                <div class="radio">
+                    {% if key == session['estimated_diameter'] %}
+                    <input type="radio" name="estimated_diameter" id="estimated_diameter_{{loop.index}}" value="{{key}}"
+                        checked>
+                    {% else %}
+                    <input type="radio" name="estimated_diameter" id="estimated_diameter_{{loop.index}}"
+                        value="{{key}}">
+                    {% endif %}
+                    <label for="estimated_diameter_{{loop.index}}">
+                        {{ clean_words(key) }}
+                    </label>
+                </div>
+                {% endfor %}
+
+                <hr class="mb-2" />
+                <h5 class="pl-3">Relative Velocity</h5>
+                <hr class="mb-2" />
+
+                {% for key in current_asteroid['close_approach_data'][0]['relative_velocity'] %}
+                <div class="radio">
+                    {% if key == session['relative_velocity'] %}
+                    <input type="radio" name="relative_velocity" id="relative_velocity_{{loop.index}}" value="{{key}}"
+                        checked>
+                    {% else %}
+                    <input type="radio" name="relative_velocity" id="relative_velocity_{{loop.index}}" value="{{key}}">
+                    {% endif %}
+                    <label for="relative_velocity_{{loop.index}}">
+                        {{ clean_words(key) }}
+                    </label>
+                </div>
+                {% endfor %}
+
+                <hr class="mb-2" />
+                <h5 class="pl-3">Miss Distance</h5>
+                <hr class="mb-2" />
+
+                {% for key in current_asteroid['close_approach_data'][0]['miss_distance'] %}
+                <div class="radio">
+                    {% if key == session['miss_distance'] %}
+                    <input type="radio" name="miss_distance" id="miss_distance_{{loop.index}}" value="{{key}}" checked>
+                    {% else %}
+                    <input type="radio" name="miss_distance" id="miss_distance_{{loop.index}}" value="{{key}}">
+                    {% endif %}
+                    <label for="miss_distance_{{loop.index}}">
+                        {{ clean_words(key) }}
+                    </label>
+                </div>
+                {% endfor %}
+
+                <h3 class="font-weight-normal mb-2">
+                    <a href="#" onclick="document.getElementById('update_units').submit()"
+                        class="btn btn-secondary">Update Units</a>
+                </h3>
+
+            </form>
+        </div>
+    </div> <!-- end slimscroll-menu-->
+</div>
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+
 
 <script src="{{ url_for('static',filename='js/vendor.js') }}"></script>
 <script src="{{ url_for('static',filename='libs/jquery-ui/jquery-ui.min.js') }}"></script>
